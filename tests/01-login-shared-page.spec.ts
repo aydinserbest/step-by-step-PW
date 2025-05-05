@@ -11,11 +11,15 @@ test('User can sign in', async ({ page }) => {
   await page.locator('text=Sign in').click();
   //await page.fill("#email","driving@biz.com")
   await page.getByLabel('email').fill('driving@biz.com')
-  await page.fill("#password","test01")
+  await page.fill("#password", "test01")
   //await page.getByLabel('Password').fill('test01')
   //await page.getByRole('button', { name: 'Sign in' }).click();
   await page.click('#login-btn')
   //await page.click('text=Sign in')  3 tane match ediyor, ilkine tıklıyor-bize lazım olan o buton değil
+  const pageText = await page.textContent("body");
+  expect(pageText).toContain("You have signed in successfully");
+  await page.goto('https://whenwise.agileway.net/sign-out');
+
   await new Promise(resolve => setTimeout(resolve, 3 * 1000))
 });
 test('User can sign in failed: password invalid entered', async ({ page }) => {
@@ -25,5 +29,5 @@ test('User can sign in failed: password invalid entered', async ({ page }) => {
   await page.fill("#password", "wrongpass");
   await page.click("#login-btn");
   const pageText = await page.textContent("body");
-  expect(pageText).toContain("Password/email is invalid");  
+  expect(pageText).toContain("Password/email is invalid");
 });

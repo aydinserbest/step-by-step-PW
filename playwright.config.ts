@@ -9,7 +9,8 @@ export default defineConfig({
   reporter: 'html',
   use: {
     
-    trace: 'on-first-retry',
+    //trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     headless: false, // Enable headed mode
   },
 
